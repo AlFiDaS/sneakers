@@ -1,0 +1,98 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProductCard from '../components/ProductCard.astro';
+import HeroSlider from '../components/HeroSlider.astro';
+import { productos } from '../data/productos.js';
+
+const productosDestacados = productos.filter(p => p.destacado);
+---
+
+<Layout>
+  <HeroSlider />
+
+  <!-- Productos más vendidos -->
+  <section class="productos">
+    <h2>Más Vendidos</h2>
+    <div class="grid">
+      {productosDestacados.map((producto) => (
+        <ProductCard {...producto} />
+      ))}
+    </div>
+  </section>
+
+  <!-- Sobre SV Sneakers -->
+  <section class="sobre">
+    <div class="sobre-content">
+      <h2>Sobre SV Sneakers</h2>
+      <p>
+        En SV Sneakers ofrecemos zapatillas urbanas, cómodas y con estilo, seleccionadas para destacar en cada paso.
+      </p>
+      <p>
+        Estamos ubicados en Santa Fe 1127, Corrientes Capital. Hacemos envíos a todo el país y también podés visitarnos en nuestro local.
+      </p>
+    </div>
+    <img src="/images/sobre-nosotros.jpg" alt="Zapatillas SV Sneakers en exhibición" />
+  </section>
+
+  <!-- CTA final -->
+  <section class="cta">
+    <h2>¿Listo para conseguir tu próximo par?</h2>
+    <a class="btn" href="/productos">Explorar catálogo</a>
+  </section>
+
+  <style>
+    .btn {
+      background-color: #111;
+      padding: 0.8rem 1.5rem;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      font-weight: bold;
+      display: inline-block;
+      margin-top: 1rem;
+      text-decoration: none;
+    }
+    .productos {
+      display: flex;
+      flex-direction: column;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .sobre {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 2rem;
+      background-color: #f4f4f4;
+    }
+    .sobre-content {
+      max-width: 500px;
+    }
+    .sobre img {
+      max-width: 300px;
+      border-radius: 1rem;
+    }
+    .cta {
+      background-color: #ddd;
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+
+    @media (min-width: 800px) {
+      .productos {
+        padding: 3rem 2rem;
+        max-width: 1300px;
+        margin: 0 auto;
+      }
+    }
+  </style>
+</Layout>

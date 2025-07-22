@@ -1,0 +1,386 @@
+/* -------------------------------
+   🌐 Global Styles - Lume
+---------------------------------*/
+
+/* 🌐 RESET & BASE ------------------------ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+  background-color: #fffdf9;
+  color: #222;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+button {
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+}
+
+/* 🖼️ TYPOGRAPHY ------------------------ */
+h1, h2, h3, h4 {
+  font-family: 'Playfair Display', serif;
+  color: #111;
+}
+
+h1 {
+  font-size: 2.2rem;
+}
+
+h2 {
+  font-size: 1.8rem;
+}
+
+p {
+  margin-bottom: 0.3rem;
+}
+
+section {
+  padding: 2rem 1.5rem;
+}
+
+/* 🔘 BUTTONS ------------------------ */
+.btn {
+  display: inline-block;
+  background: #e0a4ce;
+  color: white;
+  padding: 0.8rem 1.2rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.3s ease;
+}
+
+.logo {
+  width: 80px;
+}
+.logo img{
+  border-radius: 0;
+}
+
+.logo2 {
+  width: 160px;
+  margin: 0 auto 10px;
+}
+
+.btn:hover {
+  background: #765580;
+}
+
+.btn-finalizar {
+  background-color: #25D366;
+  color: white;
+  text-decoration: none;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.btn-finalizar:hover {
+  background-color: #1ebd5f;
+}
+
+.btn-vaciar {
+  background-color: #d60000;
+  color: white;
+}
+
+.btn-vaciar:hover {
+  background-color: #7c0202;
+}
+
+.btn-remove {
+  align-self: flex-start;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: white;
+  background-color: #e0a4ce;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  width: 130px;
+}
+
+.btn-remove:hover {
+  background-color: #765580;
+}
+
+/* 🛒 CARRITO ------------------------ */
+.carrito {
+  max-width: 1200px;
+  min-height: 70vh;
+  margin: 4rem auto;
+  padding: 1rem;
+  /* display: flex;
+  flex-direction: row; */
+}
+
+.carrito-section {
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+  justify-content: center;
+}
+
+.carrito-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.producto-carrito {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1rem;
+  border: 1px solid #f2f2f2;
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.producto-carrito:hover {
+  transform: scale(1.02);
+}
+
+.img-wrap {
+  flex-shrink: 0;
+}
+
+.img-wrap img {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 0.75rem;
+  border: 1px solid #e0e0e0;
+  display: block;
+}
+
+.info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.info h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  margin: 0 0 0.2rem;
+  color: #333;
+  font-weight: 600;
+}
+
+.price {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #e0a4ce;
+  margin-bottom: 0.5rem;
+}
+
+.carrito-resumen {
+  text-align: center;
+  /* margin-top: 1rem; */
+}
+
+#total {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  color: #333;
+  border-top: 2px solid #d6d6d6;
+}
+
+.acciones {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.carrito-vacio {
+  text-align: center;
+  font-style: italic;
+  color: #777;
+  font-size: 1rem;
+  padding: 1rem;
+}
+
+/* 📱 RESPONSIVE ------------------------ */
+@media (max-width: 600px) {
+  .producto-carrito {
+    /* flex-direction: column; */
+    align-items: flex-start;
+  }
+
+  .logo2	{
+    width: 120px;
+  }
+
+  .img-wrap img {
+    width: 140px;
+  height: 140px;
+  }
+
+  .btn-remove {
+    width: 100%;
+    text-align: center;
+  }
+}
+.cantidad-controles {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.btn-cantidad {
+  width: 36px;
+  height: 36px;
+  background-color: #dfdfdf;
+  color: #333;
+  border: none;
+  border-radius: 50%;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.btn-cantidad:hover {
+  background-color: #b1b1b1;
+  color: white;
+  transform: scale(1.05);
+}
+
+.cantidad {
+  font-weight: bold;
+  font-size: 1rem;
+  width: 2rem;
+  text-align: center;
+}
+
+.formulario-carrito {
+  background: #fff;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 5rem;
+}
+
+.formulario-carrito h2 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.formulario-carrito label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  font-size: 0.95rem;
+  gap: 0.3rem;
+}
+
+.formulario-carrito input,
+.formulario-carrito textarea,
+.formulario-carrito select {
+  padding: 0.5rem 0.8rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+@media (max-width: 800px) {
+  .carrito-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .carrito-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .formulario-carrito {
+      margin-top: 1rem;
+  }
+}
+
+
+
+.info-zapas {
+  max-width: 950px;
+  margin: 4rem auto;
+  padding: 2rem;
+  background: #f6eef7;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.info-zapas h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  font-family: 'Playfair Display', serif;
+}
+
+.info-zapas .subtexto {
+  color: #666;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+.info-zapas hr {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 1.5rem 0;
+}
+
+.detalle-info p {
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  font-size: 1rem;
+  color: #444;
+}
+
+.detalle-info span {
+  font-size: 1.2rem;
+  margin-right: 0.3rem;
+}
+

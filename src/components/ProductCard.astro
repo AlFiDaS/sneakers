@@ -1,0 +1,148 @@
+---
+const { image, hoverImage, name, price, stock, slug } = Astro.props;
+---
+
+<div class="product-card">
+  <div class="image-container">
+    <a href={`/productos/${slug}`} class="card-link">
+      <img
+        src={image}
+        alt={name}
+        onmouseover={hoverImage ? `this.src='${hoverImage}'` : null}
+        onmouseout={`this.src='${image}'`}
+        class="imagen-con-transicion"
+      />
+
+      {!stock && <span class="sin-stock">Sin stock</span>}
+    </a>
+  </div>
+
+  <div class="info">
+    <h3>{name}</h3>
+    <p class="price">{price}</p>
+
+     {stock ? (
+    <a href={`/productos/${slug}`} class="btn-agregar">
+      Comprar!
+    </a>
+  ) : (
+    <button class="btn-agregar" disabled>Sin stock</button>
+  )}
+</div>
+</div>
+
+<script type="module" is:inline>
+  import { agregarAlCarrito } from '/js/cart.js';
+
+  window.agregarAlCarrito = (name, price, image, slug) => {
+    agregarAlCarrito({ name, price, image, slug });
+  };
+</script>
+
+<style>
+  .product-card {
+    background: #fff;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+  }
+
+  .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .image-container {
+    position: relative;
+  }
+
+  .card-link {
+    text-decoration: none;
+    display: block;
+    color: inherit;
+  }
+
+  img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .sin-stock {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.85);
+    color: white;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.8rem;
+    border-radius: 0.3rem;
+    font-weight: bold;
+  }
+
+  .info {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+  }
+
+  h3 {
+    font-family: 'Rubik', sans-serif;
+    font-size: 1.1rem;
+    margin: 0 0 0.5rem;
+    line-height: 1.2;
+    color: #111;
+  }
+
+  .price {
+    font-weight: bold;
+    color: #111;
+    font-size: 1.6rem;
+    margin: 0 0 0.5rem;
+  }
+
+  .btn-agregar {
+    background-color: #111;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.4rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .btn-agregar:hover {
+    background-color: #333;
+  }
+
+  .btn-agregar:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+
+  .imagen-con-transicion {
+    transition: opacity 0.4s ease-in-out;
+  }
+
+  .imagen-con-transicion:hover {
+    opacity: 0.85;
+  }
+
+  @media (max-width: 800px) {
+    img {
+      height: 200px;
+    }
+    .info {
+      padding: 0.5rem;
+    }
+  }
+</style>

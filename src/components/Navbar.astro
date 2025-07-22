@@ -1,0 +1,92 @@
+---
+const links = [
+  { href: '/', text: 'Inicio' },
+  { href: '/productos', text: 'Productos' },
+  // { href: '/sobre-nosotros', text: 'Sobre Nosotros' },
+  // { href: '/contacto', text: 'Contacto' },
+];
+---
+
+<nav>
+  <div class="nav-container">
+    <a href="/" class="logo"><img src="/images/sv-logo-negro.png" alt="SV Sneakers Logo" /></a>
+    <ul>
+      {links.map((link) => (
+        <li><a href={link.href}>{link.text}</a></li>
+      ))}
+      <li>
+        <a href="/carrito" class="carrito-icon">
+          🛒 <span id="cart-count">0</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<script type="module" is:inline>
+  import { updateCartCount } from '/js/cart.js';
+  updateCartCount();
+</script>
+
+
+<style>
+  nav {
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    padding: 0.6rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #000000;
+  }
+
+  ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+  }
+
+  a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+
+  a:hover {
+    color: #b1b1b1;
+  }
+
+  .carrito-icon {
+    position: relative;
+    font-size: 1.2rem;
+  }
+
+  #cart-count {
+    background: #1a1a1a;
+    color: white;
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 50%;
+    position: absolute;
+    top: -10px;
+    right: -15px;
+  }
+</style>
