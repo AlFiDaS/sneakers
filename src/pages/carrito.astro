@@ -48,17 +48,16 @@ import Layout from '../layouts/Layout.astro';
             <input type="text" id="provincia" />
           </label>
 
-          
           <label id="label-sucursal" style="display: none;">
             Sucursal de destino:
             <input type="text" id="sucursal" />
           </label>
-          
+
           <label id="label-localidad" style="display: none;">
             Localidad:
             <input type="text" id="localidad" />
           </label>
-          
+
           <label id="label-direccion" style="display: none;">
             Dirección:
             <input type="text" id="direccion" />
@@ -79,7 +78,7 @@ import Layout from '../layouts/Layout.astro';
             <textarea id="observaciones" rows="2"></textarea>
           </label>
 
-           <label>
+          <label>
             Aclaraciones (opcional):
             <textarea id="aclaraciones" rows="3" placeholder="Ejemplo: Porton negro, no funciona el timbre."></textarea>
           </label>
@@ -148,13 +147,13 @@ import Layout from '../layouts/Layout.astro';
           </div>
           <div class="info">
             <h3>${item.name.replace(/"/g, '&quot;')}</h3>
-            <p class="price">${item.price}</p>
+            <p class="price">$${parseInt(item.price.replace("$", "")).toLocaleString("es-AR")}</p>
             <div class="cantidad-controles">
-              <button class="btn-cantidad menos" data-slug="${item.slug}">−</button>
+              <button class="btn-cantidad menos" data-slug="${item.slug}" data-talle="${item.talle || ''}">−</button>
               <span class="cantidad">${item.cantidad}</span>
-              <button class="btn-cantidad mas" data-slug="${item.slug}">+</button>
+              <button class="btn-cantidad mas" data-slug="${item.slug}" data-talle="${item.talle || ''}">+</button>
             </div>
-            <button data-slug="${item.slug}" class="btn-remove">Eliminar</button>
+            <button data-slug="${item.slug}" data-talle="${item.talle || ''}" class="btn-remove">Eliminar</button>
           </div>
         `;
 
@@ -192,9 +191,10 @@ import Layout from '../layouts/Layout.astro';
       let totalConTarjeta = pago === 'tarjeta' ? Math.round(totalCarrito * 1.25) : totalCarrito;
       let totalFinal = totalConTarjeta + envioCosto;
 
-      carritoTotalEl.textContent = `Tu carrito: $${totalConTarjeta}`;
-      envioInfoEl.textContent = `Envío: ${envioTexto}`;
-      totalEl.textContent = `Total a pagar: $${totalFinal}`;
+      carritoTotalEl.textContent = `Tu carrito: $${totalConTarjeta.toLocaleString("es-AR")}`;
+      envioInfoEl.textContent = `Envío: ${envioCosto > 0 ? "$" + envioCosto.toLocaleString("es-AR") : envioTexto}`;
+      totalEl.textContent = `Total a pagar: $${totalFinal.toLocaleString("es-AR")}`;
+
 
       let datosCliente = `*Datos del cliente:*\nNombre: ${nombre}\nTipo de envío: ${envio}`;
 
@@ -206,28 +206,20 @@ import Layout from '../layouts/Layout.astro';
         datosCliente += `\nProvincia: ${get('provincia')}\nLocalidad: ${get('localidad')}\nDirección: ${get('direccion')}\nCP: ${get('cp')}\nEmail: ${get('email')}\nObservaciones: ${get('observaciones')}`;
       }
 
-      const texto = encodeURIComponent(`Hola *Lume*, me gustaría hacer un pedido de:
-${carrito.map(p => `• ${p.name} - ${p.price} x${p.cantidad}`).join("\n")}
-Forma de pago: ${pago === 'tarjeta' ? 'Tarjeta (+25% hasta en 3 cuotas)' : 'Transferencia'}
-Aclaraciones: ${get('aclaraciones') || 'Ninguna'}
-*Tu carrito: $${totalConTarjeta}*
-Envío: ${envioTexto}
-*Total a pagar: $${totalFinal}*
+      const texto = encodeURIComponent(`Hola *Sv Sneakers*, me gustaría hacer un pedido de:\n${carrito.map(p => `• ${p.name} - $${parseInt(p.price.replace("$", "")).toLocaleString("es-AR")} x${p.cantidad}`).join("\n")}\nForma de pago: ${pago === 'tarjeta' ? 'Tarjeta (+25% hasta en 3 cuotas)' : 'Transferencia'}\nAclaraciones: ${get('aclaraciones') || 'Ninguna'}\n*Tu carrito: $${totalConTarjeta.toLocaleString("es-AR")}*\nEnvío: ${envioTexto}\n*Total a pagar: $${totalFinal.toLocaleString("es-AR")}*\n\n${datosCliente}\n\nGracias!`);
 
-${datosCliente}
-
-Gracias!`);
-
-      finalizarBtn.href = `https://wa.me/5493795330156?text=${texto}`;
+      finalizarBtn.href = `https://wa.me/5493795343171?text=${texto}`;
       updateCartCount();
     }
 
     document.addEventListener("click", (e) => {
       const slug = e.target.dataset.slug;
+      const talle = e.target.dataset.talle || '';
+
       if (!slug) return;
 
       let carrito = getCarrito();
-      const index = carrito.findIndex(p => p.slug === slug);
+      const index = carrito.findIndex(p => p.slug === slug && (p.talle || '') === talle);
       if (index === -1) return;
 
       const item = carrito[index];

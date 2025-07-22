@@ -1,5 +1,10 @@
 ---
 const { image, hoverImage, name, price, stock, slug } = Astro.props;
+
+function formatearPrecio(precio: number): string {
+  return `$${precio.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`;
+}
+
 ---
 
 <div class="product-card">
@@ -19,16 +24,16 @@ const { image, hoverImage, name, price, stock, slug } = Astro.props;
 
   <div class="info">
     <h3>{name}</h3>
-    <p class="price">{price}</p>
+    <p class="price">{formatearPrecio(price)}</p>
 
-     {stock ? (
-    <a href={`/productos/${slug}`} class="btn-agregar">
-      Comprar!
-    </a>
-  ) : (
-    <button class="btn-agregar" disabled>Sin stock</button>
-  )}
-</div>
+    {stock ? (
+      <a href={`/productos/${slug}`} class="btn-agregar">
+        Comprar!
+      </a>
+    ) : (
+      <button class="btn-agregar" disabled>Sin stock</button>
+    )}
+  </div>
 </div>
 
 <script type="module" is:inline>

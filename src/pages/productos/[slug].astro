@@ -26,7 +26,7 @@ const { producto } = Astro.props;
 
       <div class="info">
         <h1>{producto.name}</h1>
-        <p class="price">{producto.price}</p>
+        <p class="price">{'$' + Number(producto.price).toLocaleString('es-AR')}</p>
         <p class="desc">{producto.descripcion}</p>
 
         {producto.stock ? (
@@ -35,11 +35,9 @@ const { producto } = Astro.props;
 
             <label for="talle">Talle:</label>
             <select id="talle" class="select-talle">
-              <option value="38">38</option>
-              <option value="39">39</option>
-              <option value="40">40</option>
-              <option value="41">41</option>
-              <option value="42">42</option>
+              {producto.talles.map((talle) => (
+                <option value={talle}>{talle}</option>
+              ))}
             </select>
 
             <button
@@ -61,6 +59,7 @@ const { producto } = Astro.props;
     </section>
     <Info />
   </div>
+</Layout>
 
   <script type="module" is:inline>
     import { agregarAlCarrito } from '/js/cart.js';
@@ -69,6 +68,7 @@ const { producto } = Astro.props;
       agregarAlCarrito({ name: name + ' (Talle ' + talle + ')', price, image, slug });
     };
   </script>
+
 
   <style>
     .pagina-producto {
