@@ -12,7 +12,7 @@ export function saveCarrito(carrito) {
 export function agregarAlCarrito(producto) {
   let carrito = getCarrito();
 
-  // buscar coincidencia por slug y talle
+  // buscar coincidencia por slug y name (puede incluir talla si lo agregaste al nombre)
   const index = carrito.findIndex(
     (p) => p.slug === producto.slug && p.name === producto.name
   );
@@ -30,8 +30,12 @@ export function agregarAlCarrito(producto) {
 export function updateCartCount() {
   const carrito = getCarrito();
   const total = carrito.reduce((acc, p) => acc + p.cantidad, 0);
-  const badge = document.getElementById("cart-count");
-  if (badge) badge.textContent = total;
+
+  const badgeDesktop = document.getElementById("cart-count");
+  const badgeMobile = document.getElementById("cart-count-mobile");
+
+  if (badgeDesktop) badgeDesktop.textContent = total;
+  if (badgeMobile) badgeMobile.textContent = total;
 }
 
 function mostrarToast(mensaje) {

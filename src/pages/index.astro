@@ -12,7 +12,7 @@ const productosDestacados = productos.filter(p => p.destacado);
 
   <!-- Productos más vendidos -->
   <section class="productos">
-    <h2>Más Vendidos</h2>
+    <h2>Nuevos ingresos</h2>
     <div class="grid">
       {productosDestacados.map((producto) => (
         <ProductCard {...producto} />
@@ -64,6 +64,7 @@ const productosDestacados = productos.filter(p => p.destacado);
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       gap: 2rem;
       margin-top: 2rem;
+     
     }
     .sobre {
       display: flex;
